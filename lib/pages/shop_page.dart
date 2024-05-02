@@ -29,47 +29,13 @@ class _ShopPageState extends State<ShopPage> {
     super.dispose();
   }
 
-  int selectIndex = 0;
+  // int selectIndex = 0;
   int selectType = 0;
   List<String> cofeeList = [];
-  final List<Widget> _pages = [
-    // Add your pages here
-    const ShopPage(),
-    const CartPage(),
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: selectIndex,
-          selectedItemColor: Colors.orange,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
-          onTap: (value) {
-            setState(() {
-              selectIndex = value;
-            });
-          },
-          backgroundColor: Colors.black,
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.white,
-                ),
-                label: "Home"),
-            // BottomNavigationBarItem(
-            //     icon: Icon(
-            //       Icons.search,
-            //       color: Colors.white,
-            //     ),
-            //     label: "Search"),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopify_rounded,
-                  color: Colors.white,
-                ),
-                label: "Cart")
-          ]),
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -86,83 +52,144 @@ class _ShopPageState extends State<ShopPage> {
           color: Colors.white,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            const Text(
-              "Find the best coffee for you",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                "Find the best coffee for you",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[800],
-                borderRadius: BorderRadius.circular(8),
+              const SizedBox(
+                height: 20,
               ),
-              child: const TextField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  ),
-                  border: InputBorder.none,
-                  hintText: "Find your coffee ",
-                  hintStyle: TextStyle(
-                    color: Colors.grey,
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
+                    border: InputBorder.none,
+                    hintText: "Find your coffee ",
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 50,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: cofeeList.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectType = index;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(
-                          cofeeList[index],
-                          style: TextStyle(
-                              color: selectType == index
-                                  ? Colors.orange
-                                  : Colors.white,
-                              fontWeight: FontWeight.w700),
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: cofeeList.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectType = index;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            cofeeList[index],
+                            style: TextStyle(
+                                color: selectType == index
+                                    ? Colors.orange
+                                    : Colors.white,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      );
+                    }),
+              ),
+              SizedBox(
+                height: 230,
+                child: Consumer<Shop>(builder: (_, value, __) {
+                  return Expanded(
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: value.getCoffeeList().length,
+                        itemBuilder: (context, index) {
+                          return CoffeeTile(
+                              coffee: value.getCoffeeList()[index]);
+                        }),
+                  );
+                }),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                child: Text(
+                  textAlign: TextAlign.start,
+                  "Spcial for you",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[800],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  height: 100,
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 90,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                                "asset/images/coffee4-removebg-preview.png"),
+                            //fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    );
-                  }),
-            ),
-            SizedBox(
-              height: 250,
-              child: Consumer<Shop>(builder: (_, value, __) {
-                return Expanded(
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: value.getCoffeeList().length,
-                      itemBuilder: (context, index) {
-                        return CoffeeTile(coffee: value.getCoffeeList()[index]);
-                      }),
-                );
-              }),
-            )
-          ],
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "5 Coffee beans  you",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15),
+                          ),
+                          Text(
+                            " must try",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

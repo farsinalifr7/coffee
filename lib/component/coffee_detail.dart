@@ -1,5 +1,6 @@
 import 'package:cofee/modal/coffee.dart';
 import 'package:cofee/modal/shop.dart';
+import 'package:cofee/pages/intro_page.dart';
 import 'package:cofee/pages/shop_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _CoffeeDetailState extends State<CoffeeDetail> {
           ),
           onPressed: () {
             Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ShopPage()));
+                MaterialPageRoute(builder: (context) => const IntroPage()));
           },
         ),
         title: Text(
@@ -52,35 +53,6 @@ class _CoffeeDetailState extends State<CoffeeDetail> {
               child: Image.asset(
                 widget.coffee.image,
                 fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Sweet",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                Slider(
-                    activeColor: Colors.orange,
-                    divisions: 4,
-                    value: val,
-                    onChanged: (value) {
-                      setState(() {
-                        val = value;
-                      });
-                    }),
-              ],
-            ),
-            SizedBox(
-              height: 100,
-              child: Text(
-                textAlign: TextAlign.start,
-                widget.coffee.description,
-                style: TextStyle(color: Colors.grey[200], fontSize: 14),
               ),
             ),
             const SizedBox(
@@ -143,6 +115,38 @@ class _CoffeeDetailState extends State<CoffeeDetail> {
                 )
               ],
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Sweet",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                Slider(
+                    activeColor: Colors.orange,
+                    divisions: 4,
+                    value: val,
+                    onChanged: (value) {
+                      setState(() {
+                        val = value;
+                      });
+                    }),
+              ],
+            ),
+            SizedBox(
+              height: 100,
+              child: Text(
+                textAlign: TextAlign.start,
+                widget.coffee.description,
+                style: TextStyle(color: Colors.grey[200], fontSize: 14),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
             const Spacer(),
             GestureDetector(
               onTap: () {
@@ -160,15 +164,15 @@ class _CoffeeDetailState extends State<CoffeeDetail> {
 
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const ShopPage()));
+                    MaterialPageRoute(builder: (context) => const IntroPage()));
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: Colors.orange[400],
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

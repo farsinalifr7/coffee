@@ -1,4 +1,5 @@
 import 'package:cofee/modal/shop.dart';
+import 'package:cofee/pages/intro_page.dart';
 import 'package:cofee/pages/shop_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: ShopPage(),
+          home: IntroPage(),
         ));
   }
 }

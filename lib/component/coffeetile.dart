@@ -50,13 +50,8 @@ class _CoffeeTileState extends State<CoffeeTile> {
                           color: Colors.white, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
-                    // Text(
-                    //   widget.coffee.description,
-                    //   style: const TextStyle(
-                    //       color: Colors.white, fontWeight: FontWeight.w300),
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
